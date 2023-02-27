@@ -53,7 +53,7 @@ where ```Xq``` is a matrix with N query points each of them of dimension D (i.e.
 If you find any issues in the algEmulator or you have questions, please don't hesitate to contact us at jorge.vicent@uv.es 
 
 ## License
-For open source projects, say how it is licensed.
+GNU GENERAL PUBLIC LICENSE, Version 3, 29 June 2007
 
 ## Project status
 Future evolutions of algEmulator might be released in the future. Stay tuned!

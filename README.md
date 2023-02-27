@@ -43,6 +43,12 @@ dimReduction: method for dimensionality reduction: 'pca' (default) for PCA decom
 - numCmp: number of components after dimensionality reduction. If dimReduction='pca', this value can be defined as a scalar (=20, default value) or a vector defining the number of PCA components for each atmospheric transfer function. If dimReduction='none', this value is automatically replaced by the number of wavelengths unless multifidelify.method='linear', in which case numCmp=2 by definition.
 - multifidelity: Structure defining the configuration of a multifidelity emulator. The following parameters can be configured: (1) **LFregressor**: low-fidelity (LF) regression model among the options 'polyfit' (default, Ndim surface fitting by 2nd order polynomial) or 'gpr' (with a squaredexponential kernel and 2 PCAs). (2) **method**: 'delta' (default): a GP emulator is trained for the difference between the real (training) and the LF regression data. Note that this difference is spectral (multioutput)! 'gain': a GP emulator is trained for ratio between the real (training) and the LF  regression data. Note that this ratio is spectral (multioutput)! 'linear': a linear regression between the LF regression and the real (training) data is calculated (Yhf = A.Ylf+B). The GP emulator is trained for the values of the fitting coefficients A and B. Note that this coefficients are scalars!. (3) **nLayers**: integer value (>0) defining the number of multi-fidelity layers. This allows to execute the lowest fidelity with LFregressor and nLayers-1 recursive GPs with the same configuration as in conf. If multifidelity is not used if is this parameter is empty, non-defined or any other non-valid value.
 
+Once the emulator is trained, it can be used to predict atmospheric transfer functions (i.e. transmittances, spherical albedo and path radiance) as follows:
+```
+Yq = emu.emulate(Xq);
+```
+where ```Xq``` is a matrix with N query points each of them of dimension D (i.e. the number of atmospheric/geometric variables in the input space). The output ```Yq``` is a matrix of dimensions NxLxP where L is the number of wavelengths and P is the number of transfer functions (typically 6). If you show ```emu``` in Matlab's command window, you'll see the complete list of attributes, including outnames (for interpreting the output spectra) and varnames (names of input variables)
+
 ## Support
 If you find any issues in the algEmulator or you have questions, please don't hesitate to contact us at jorge.vicent@uv.es 
 
